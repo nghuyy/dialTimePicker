@@ -8,9 +8,18 @@ Get aar here:
 
 ```
 https://github.com/nghuyy/dialtimerpicker
+
+[run git from root project folder]
+
+git submodule add https://github.com/nghuyy/dialtimerpicker.git
+
+dependencies { 
+		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')
+        
+
+
 ```
 
-A custom time picker library for Android.
 
 
 <H2>Images</H2>
@@ -19,25 +28,8 @@ A custom time picker library for Android.
 <br>
 
 <H2>Usage</H2>
-Gradle Import:
-
-Add the specific repository to your build file:
-```groovy
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-```
-Add the dependency in your build file (do not forget to specify the correct qualifier, usually 'aar'):
-```groovy
-dependencies {
-    compile 'com.github.ugurtekbas:dialTimePicker:8d263fc3a1'
-}
-```
 
 ```xml
-
 <picker.ugurtekbas.com.Picker.Picker
         android:id="@+id/picker"
         android:layout_width="match_parent"
