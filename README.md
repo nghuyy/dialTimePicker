@@ -1,37 +1,30 @@
-# dialTimePicker
-A custom time picker library for Android.
-<br>
-As a result of needing a fixed time picker for pre-lollipop devices, for my
-[alarm app](https://play.google.com/store/apps/details?id=com.ugurtekbas.alarmshuffle) i developed a dial time picker view.
-Calculations in the main class mostly based on [erz05's view.](https://github.com/erz05/TimePicker)
+# TimePicker
+Fork version from here:
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-dialTimePicker-green.svg?style=true)](https://android-arsenal.com/details/1/3244)
+```
+https://github.com/ugurtekbas/dialTimePicker
+```
+Get aar here:
+
+```gradle
+git submodule add https://github.com/nghuyy/dialtimerpicker.git
+
+dependencies { 
+		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')        
+		...
+
+```
+
+
 
 <H2>Images</H2>
-<img width="270px" height="480" src="/images/1.png" />
+<img width="270px" height="480" src="/images/3.png" />
 <img width="270px" height="480" src="/images/2.png" />
 <br>
 
 <H2>Usage</H2>
-Gradle Import:
-
-Add the specific repository to your build file:
-```groovy
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-```
-Add the dependency in your build file (do not forget to specify the correct qualifier, usually 'aar'):
-```groovy
-dependencies {
-    compile 'com.github.ugurtekbas:dialTimePicker:8d263fc3a1'
-}
-```
 
 ```xml
-
 <picker.ugurtekbas.com.Picker.Picker
         android:id="@+id/picker"
         android:layout_width="match_parent"
@@ -50,6 +43,11 @@ dependencies {
         app:textColor="#000000"
         app:trackSize="20dp"
         app:dialRadius="60dp"
+                                     
+        app:iconBitmap="@drawable/ic_baseline_nights"
+        app:iconSize="48"
+        app:dialRadius="48dp"
+                                     
         />
 ```
 
