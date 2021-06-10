@@ -2,13 +2,9 @@ package picker.ugurtekbas.com.Picker
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.RectF
-import android.graphics.Xfermode
+import android.graphics.*
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.VectorDrawable
 import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -16,11 +12,8 @@ import android.view.MotionEvent
 import android.view.View
 import picker.ugurtekbas.com.library.R
 import java.util.*
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.pow
-import kotlin.math.sin
+import kotlin.math.*
+
 
 interface TimeChangedListener {
     fun timeChanged(date: Date?)
@@ -60,6 +53,7 @@ class Picker @JvmOverloads constructor(
     var hourFormat: Boolean
     private var firstRun = true
     private var manualAdjust = false
+
     /**
      * To enable adjusting time by touching on clock's dial
      * @param dialAdjust
@@ -71,6 +65,9 @@ class Picker @JvmOverloads constructor(
         private set
     private var amPmStr: String? = null
     var timeListener: TimeChangedListener? = null
+    var showText:Boolean = false
+    var icon:Drawable? = null
+    var iconSize:Int = 48
 
     companion object {
         private const val AN_HOUR_AS_MINUTES = 60
@@ -127,6 +124,9 @@ class Picker @JvmOverloads constructor(
             hourFormat = typedArray.getBoolean(R.styleable.Picker_hourFormat, hourFormat)
             setTrackSize(typedArray.getDimensionPixelSize(R.styleable.Picker_trackSize, trackSize))
             setDialRadiusDP(typedArray.getDimensionPixelSize(R.styleable.Picker_dialRadius, dialRadiusDP))
+            val icondraw =  typedArray.getDrawable(R.styleable.Picker_iconBitmap)
+            if(icondraw!=null)icon = icondraw
+            iconSize =  typedArray.getInteger(R.styleable.Picker_iconSize,iconSize)
             typedArray.recycle()
         }
     }
@@ -195,14 +195,17 @@ class Picker @JvmOverloads constructor(
             }
         }
         previousHour = hour
-        with(paint) {
+       if(showText) with(paint) {
             style = Paint.Style.FILL
             color = textColor
             alpha = if (isEnabled) paint.alpha else 77
             textSize = min / 5
             //the text which shows time
             hStr = if (hour < 10) "0$hour" else hour.toString() + ""
-            canvas.drawText(hStr + ":" + amPM, 0f, paint.textSize / 4, paint)
+            val minFormat =  currentMin.let{
+                if(it < 10) "0$it" else it.toString()
+            }
+            canvas.drawText("$hStr:$minFormat", 0f, paint.textSize / 4, paint)
             textSize = min / 10
             canvas.drawText(amPmStr!!, 0f, paint.textSize * 2, paint)
         }
@@ -228,6 +231,22 @@ class Picker @JvmOverloads constructor(
             alpha = if (isEnabled) paint.alpha else 77
             xfermode = null
             canvas.drawCircle(dialX, dialY, dialRadius, paint)
+            val bitmap = icon?.let {
+                try {
+                    val bitmap: Bitmap = Bitmap.createBitmap(
+                        iconSize,
+                        iconSize,
+                        Bitmap.Config.ARGB_8888
+                    )
+                    val canvas = Canvas(bitmap)
+                    it.setBounds(0, 0, canvas.width, canvas.height)
+                    it.draw(canvas)
+                    bitmap
+                } catch (e: OutOfMemoryError) {
+                    null
+                }
+            }
+            if (icon!=null)canvas.drawBitmap(bitmap!!,dialX-(iconSize/2),dialY-(iconSize/2),paint)
         }
     }
 

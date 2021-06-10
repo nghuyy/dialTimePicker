@@ -53,6 +53,13 @@ class MainFragment : Fragment(), TimeChangedListener {
             }
         } else {
             val picker = v.findViewById<View>(R.id.picker) as Picker
+            with(picker){
+                setClockColor(resources.getColor(R.color.clockColor))
+                setDialColor(resources.getColor(R.color.dialColor))
+                setTime(12, 45, Picker.AM)
+                setTrackSize(20)
+                setDialRadiusDP(60)
+            }
             picker.isDialAdjust = false
             picker.timeListener = this
             val et = v.findViewById<View>(R.id.et) as TextView
