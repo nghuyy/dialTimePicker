@@ -6,16 +6,11 @@ https://github.com/ugurtekbas/dialTimePicker
 ```
 Get aar here:
 
-```
-https://github.com/nghuyy/dialtimerpicker
-
-[run git from root project folder]
-
+```gradle
 git submodule add https://github.com/nghuyy/dialtimerpicker.git
 
 dependencies { 
-		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')
-        
+		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')        
 
 
 ```
