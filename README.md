@@ -1,4 +1,15 @@
 # TimePicker
+Fork version from here:
+
+```
+https://github.com/ugurtekbas/dialTimePicker
+```
+Get aar here:
+
+```
+https://github.com/nghuyy/dialtimerpicker
+```
+
 A custom time picker library for Android.
 
 
