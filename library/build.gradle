@@ -46,7 +46,7 @@ android {
             versionCode System.getenv('BUILD_NUMBER').toInteger()
             versionName "1.1." + System.getenv('BUILD_NUMBER')
         }else{
-            versionCode 2
+            versionCode 3
             versionName '1.0'
         }
         if (isJenkins) {
