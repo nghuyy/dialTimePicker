@@ -11,7 +11,7 @@ git submodule add https://github.com/nghuyy/dialtimerpicker.git
 
 dependencies { 
 		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')        
-
+		...
 
 ```
 
