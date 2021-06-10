@@ -1,0 +1,3 @@
+[submodule "dialtimerpicker"]
+	path = dialtimerpicker
+	url = https://github.com/nghuyy/dialtimerpicker.git
