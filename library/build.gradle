@@ -1,14 +1,58 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    ext.kotlin_version = '1.5.10'
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        maven {url "https://jitpack.io"}
+        google()
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+def getChanelName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'branch', '--show-current'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+def isJenkins = System.getenv('CI')=="true"
+def gitBranch = (isJenkins)?System.getenv('BUILD_REF'):getChanelName()
+if(isJenkins && gitBranch == "dev"){
+    throw new GradleException('Skipt build when CI dev branch!')
+}
+if(isJenkins && gitBranch == ""){
+    throw new GradleException('Direct build denny, please commit with message!')
+}
 android {
     compileSdkVersion 30
-
+    buildToolsVersion "30.0.3"
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        if(isJenkins){
+            versionCode System.getenv('BUILD_NUMBER').toInteger()
+            versionName "1.1." + System.getenv('BUILD_NUMBER')
+        }else{
+            versionCode 1
+            versionName '1.0.1'
+        }
+        if (isJenkins) {
+            def jobname = System.getenv('JOB_NAME')
+            setProperty("archivesBaseName", "${jobname}-${System.getenv('BUILD_NUMBER')}")
+        }
     }
     buildTypes {
         release {
@@ -16,10 +60,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
