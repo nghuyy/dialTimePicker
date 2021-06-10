@@ -1,13 +1,7 @@
 # TimePicker
-Fork version from here:
-
-```
-https://github.com/ugurtekbas/dialTimePicker
-```
-Get aar here:
 
 ```gradle
-git submodule add https://github.com/nghuyy/dialtimerpicker.git
+// Using Git: git submodule add https://github.com/nghuyy/dialtimerpicker.git
 
 dependencies { 
 		implementation fileTree(include: [ '*.aar'], dir: '../dialtimerpicker/dist')        
@@ -43,51 +37,12 @@ dependencies {
         app:textColor="#000000"
         app:trackSize="20dp"
         app:dialRadius="60dp"
-                                     
         app:iconBitmap="@drawable/ic_baseline_nights"
         app:iconSize="48"
-        app:dialRadius="48dp"
                                      
         />
+
 ```
-
-```java
-Picker picker = (Picker) findViewById(R.id.picker);
-//or
-Picker picker = new Picker(context);
-
-//Set background color
-picker.setCanvasColor(Color.WHITE);
-//Set dial color
-picker.setDialColor(Color.ORANGE);
-//Set clock color
-picker.setClockColor(Color.CYAN);
-//Set text color
-picker.setTextColor(Color.BLACK);
-//Enable 24 or 12 hour clock
-picker.setHourFormat(true);
-//Get current hour
-picker.getCurrentHour();
-//Get current minutes
-picker.getCurrentMin();
-//Diasble/enable the picker
-picker.setEnabled(false);
-//Set dial's size
-picker.setTrackSize(20);
-//Set adjuster's size
-picker.setDialRadiusDP(60);
-//Initialize picker's time
-picker.setTime(9,0);
-//Set picker's time with calendar object
-picker.setTime(Calendar.getInstance());
-//Set dialAdjust to adjust time by touching on clock's dial
-picker.setDialAdjust(true);
-//Set TimeChangedListener
-picker.setTimeChangedListener(this);
-
-//TimeChangeListener method
-public void timeChanged(Date date){
-}
 
 ```
 <H2>License</H2>
