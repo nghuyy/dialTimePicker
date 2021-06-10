@@ -8,7 +8,7 @@ Calculations in the main class mostly based on [erz05's view.](https://github.co
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-dialTimePicker-green.svg?style=true)](https://android-arsenal.com/details/1/3244)
 
 <H2>Images</H2>
-<img width="270px" height="480" src="/images/1.png" />
+<img width="270px" height="480" src="/images/3.png" />
 <img width="270px" height="480" src="/images/2.png" />
 <br>
 
