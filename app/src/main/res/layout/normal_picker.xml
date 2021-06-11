@@ -19,16 +19,20 @@
             app:dialColor="#F8EFCE"
             />
         <picker.ugurtekbas.com.Picker.Picker
-            android:id="@+id/picker1"
+            android:id="@+id/pickersmall"
+            android:shape="ring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="60dp"
+            android:layout_margin="70dp"
             android:background="#fffe"
             app:iconBitmap="@drawable/ic_baseline_nights"
             app:iconSize="48"
-            app:dialRadius="48dp"
+            app:dialRadius="60dp"
+            app:cardPreventCornerOverlap = "false"
             app:hourFormat="true"
+            app:cardCornerRadius="120dp"
             app:dialColor="#ACA8A9"
+            app:cardUseCompatPadding="false"
             />
     </FrameLayout>
     <LinearLayout

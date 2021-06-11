@@ -65,7 +65,7 @@ class Picker @JvmOverloads constructor(
     private var amPmStr: String? = null
     var timeListener: TimeChangedListener? = null
     var showText:Boolean = false
-    var icon:Drawable? = null
+    var iconBitmap:Bitmap? = null
     var iconSize:Int = 48
 
     companion object {
@@ -124,7 +124,23 @@ class Picker @JvmOverloads constructor(
             setTrackSize(typedArray.getDimensionPixelSize(R.styleable.Picker_trackSize, trackSize))
             setDialRadiusDP(typedArray.getDimensionPixelSize(R.styleable.Picker_dialRadius, dialRadiusDP))
             val icondraw =  typedArray.getDrawable(R.styleable.Picker_iconBitmap)
-            if(icondraw!=null)icon = icondraw
+            if(icondraw!=null){
+                iconBitmap = icondraw.let {
+                    try {
+                        val bitmap: Bitmap = Bitmap.createBitmap(
+                            iconSize,
+                            iconSize,
+                            Bitmap.Config.ARGB_8888
+                        )
+                        val canvas = Canvas(bitmap)
+                        it.setBounds(0, 0, canvas.width, canvas.height)
+                        it.draw(canvas)
+                        bitmap
+                    } catch (e: OutOfMemoryError) {
+                        null
+                    }
+                }
+            }
             iconSize =  typedArray.getInteger(R.styleable.Picker_iconSize,iconSize)
             typedArray.recycle()
         }
@@ -230,22 +246,9 @@ class Picker @JvmOverloads constructor(
             alpha = if (isEnabled) paint.alpha else 77
             xfermode = null
             canvas.drawCircle(dialX, dialY, dialRadius, paint)
-            val bitmap = icon?.let {
-                try {
-                    val bitmap: Bitmap = Bitmap.createBitmap(
-                        iconSize,
-                        iconSize,
-                        Bitmap.Config.ARGB_8888
-                    )
-                    val canvas = Canvas(bitmap)
-                    it.setBounds(0, 0, canvas.width, canvas.height)
-                    it.draw(canvas)
-                    bitmap
-                } catch (e: OutOfMemoryError) {
-                    null
-                }
+            iconBitmap?.let{
+                canvas.drawBitmap(iconBitmap!!,dialX-(iconSize/2),dialY-(iconSize/2),paint)
             }
-            if (icon!=null)canvas.drawBitmap(bitmap!!,dialX-(iconSize/2),dialY-(iconSize/2),paint)
         }
     }
 
