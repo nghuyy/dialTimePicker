@@ -39,8 +39,8 @@ dependencies {
         app:textColor="#000000"
         app:trackSize="20dp"
         app:dialRadius="60dp"
-        app:iconBitmap="@drawable/ic_baseline_nights"
-        app:iconSize="48"
+        app:trackIconBitmap="@drawable/ic_baseline_nights"
+        app:trackIconSize="48"
                                      
         />
 
