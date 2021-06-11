@@ -53,6 +53,7 @@ class Picker @JvmOverloads constructor(
     private var firstRun = true
     private var manualAdjust = false
 
+
     /**
      * To enable adjusting time by touching on clock's dial
      * @param dialAdjust
