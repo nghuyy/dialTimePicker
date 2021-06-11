@@ -123,7 +123,7 @@ class Picker @JvmOverloads constructor(
             hourFormat = typedArray.getBoolean(R.styleable.Picker_hourFormat, hourFormat)
             setTrackSize(typedArray.getDimensionPixelSize(R.styleable.Picker_trackSize, trackSize))
             setDialRadiusDP(typedArray.getDimensionPixelSize(R.styleable.Picker_dialRadius, dialRadiusDP))
-            val icondraw =  typedArray.getDrawable(R.styleable.Picker_iconBitmap)
+            val icondraw =  typedArray.getDrawable(R.styleable.Picker_trackIconBitmap)
             if(icondraw!=null){
                 iconBitmap = icondraw.let {
                     try {
@@ -141,7 +141,7 @@ class Picker @JvmOverloads constructor(
                     }
                 }
             }
-            iconSize =  typedArray.getInteger(R.styleable.Picker_iconSize,iconSize)
+            iconSize =  typedArray.getInteger(R.styleable.Picker_trackIconSize,iconSize)
             typedArray.recycle()
         }
     }
