@@ -14,6 +14,7 @@
             app:iconBitmap="@drawable/ic_baseline_sunny"
             app:iconSize="48"
             app:dialRadius="48dp"
+            android:background="#ffa"
             app:hourFormat="true"
             app:dialColor="#F8EFCE"
             />
@@ -22,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="60dp"
+            android:background="#fffe"
             app:iconBitmap="@drawable/ic_baseline_nights"
             app:iconSize="48"
             app:dialRadius="48dp"

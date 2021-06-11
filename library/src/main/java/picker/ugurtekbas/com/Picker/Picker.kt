@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.VectorDrawable
 import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import androidx.cardview.widget.CardView
 import picker.ugurtekbas.com.library.R
 import java.util.*
 import kotlin.math.*
@@ -23,13 +23,12 @@ class Picker @JvmOverloads constructor(
         context: Context?,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
-
+) : CardView(context!!, attrs, defStyleAttr) {
     private val paint: Paint
     private val rectF: RectF
     private val dialXferMode: Xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
     private var min = 0f
-    private var radius = 0f
+    private var localradius = 0f
     private var dialRadius = 0f
     private var offset = 0f
     private var slopX = 0f
@@ -143,10 +142,10 @@ class Picker @JvmOverloads constructor(
         setMeasuredDimension(min.toInt(), min.toInt())
         offset = min * 0.5f
         val padding = min / 20
-        radius = min / 2 - padding * 2
+        localradius = min / 2 - padding * 2
         setDialRadiusDP(dialRadiusDP)
         dialRadius = dialRadiusDP.toFloat()
-        rectF[-radius, -radius, radius] = radius
+        rectF[-localradius, -localradius, localradius] = localradius
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -269,7 +268,7 @@ class Picker @JvmOverloads constructor(
                     val ySqr = posY.toDouble().pow(2.0).toFloat()
                     val distance = Math.sqrt(xSqr + ySqr.toDouble()).toFloat()
                     //check if touched point is on dial
-                    if (distance <= radius + trackSize && distance >= radius - trackSize) {
+                    if (distance <= localradius + trackSize && distance >= localradius - trackSize) {
                         angle = atan2(posY.toDouble(), posX.toDouble())
                         timeListener?.timeChanged(time)
                         invalidate()
@@ -298,8 +297,8 @@ class Picker @JvmOverloads constructor(
     }
 
     private fun calculatePointerPosition(angle: Double) {
-        dialX = (radius * cos(angle)).toFloat()
-        dialY = (radius * sin(angle)).toFloat()
+        dialX = (localradius * cos(angle)).toFloat()
+        dialY = (localradius * sin(angle)).toFloat()
     }
 
     //PM
@@ -365,7 +364,7 @@ class Picker @JvmOverloads constructor(
     fun setDialRadiusDP(inDialRadiusDP: Int) {
         //adjuster's default size
         dialRadiusDP = if (inDialRadiusDP <= 0 || inDialRadiusDP > 100) {
-            (radius / 7).toInt()
+            (localradius / 7).toInt()
         } else {
             inDialRadiusDP
         }
