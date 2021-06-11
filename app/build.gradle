@@ -49,7 +49,6 @@ dependencies {
     if(gitBranch == 'dev') {
         implementation project(':library')
     }else {
-        // with main repo, i'm using aar binary from last ci build
         implementation fileTree(include: ['*.aar'], dir: '../dialtimerpicker/dist')
     }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
