@@ -1,6 +1,6 @@
 # TimePicker
 ![Build Status](https://ci.vnapps.com/buildStatus/icon?job=dialtimerpicker)
-
+![Build Status](https://ci-backup.vnapps.com/buildStatus/icon?job=dialTimePicker&subject=Backup&status=${duration}(${startTime}))
 ```gradle
 // Using Git: git submodule add https://github.com/nghuyy/dialtimerpicker.git
 
